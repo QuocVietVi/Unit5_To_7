@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 2d4c3ffbe3d78ba4b8330de7fce1ba77
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Exo 2 Semi Bold
+  fontNames:
+  - Exo 2 Semi Bold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 07a4ab9300a394dcc9813a7907f1edba, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
