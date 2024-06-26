@@ -181,6 +181,18 @@ PrefabInstance:
       propertyPath: Speed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: moneyPrefab
+      value: 
+      objectReference: {fileID: 2316737286758453826, guid: 6f7288558dc6140429f2f707b2fbcc53, type: 3}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: potionPrefab
+      value: 
+      objectReference: {fileID: 4669839955313071815, guid: 6c73cbef587d1674b86e0bf78087ba26, type: 3}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: resourceHolder
+      value: 
+      objectReference: {fileID: 98716586}
     - target: {fileID: 8974776837463427655, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -234,6 +246,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+--- !u!4 &98716586 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7756040792239704439, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+  m_PrefabInstance: {fileID: 98716585}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &130936400
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +547,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 160539418}
   m_SourcePrefab: {fileID: 100100000, guid: 96f8402ad64f6864baee4099c68c7f24, type: 3}
+--- !u!4 &646325579 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7756040792239704439, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+  m_PrefabInstance: {fileID: 8974776836598981414}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &650563489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2207,6 +2229,18 @@ PrefabInstance:
       propertyPath: Speed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: moneyPrefab
+      value: 
+      objectReference: {fileID: 2316737286758453826, guid: 6f7288558dc6140429f2f707b2fbcc53, type: 3}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: potionPrefab
+      value: 
+      objectReference: {fileID: 4669839955313071815, guid: 6c73cbef587d1674b86e0bf78087ba26, type: 3}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: resourceHolder
+      value: 
+      objectReference: {fileID: 2091173233}
     - target: {fileID: 8974776837463427655, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -2260,6 +2294,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+--- !u!4 &2091173233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7756040792239704439, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+  m_PrefabInstance: {fileID: 2091173232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2124815720
 GameObject:
   m_ObjectHideFlags: 0
@@ -2747,13 +2786,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
-      propertyPath: Speed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974776837463427655, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: moneyPrefab
+      value: 
+      objectReference: {fileID: 2316737286758453826, guid: 6f7288558dc6140429f2f707b2fbcc53, type: 3}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: potionPrefab
+      value: 
+      objectReference: {fileID: 4669839955313071815, guid: 6c73cbef587d1674b86e0bf78087ba26, type: 3}
+    - target: {fileID: 8974776837463427652, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
+      propertyPath: resourceHolder
+      value: 
+      objectReference: {fileID: 646325579}
     - target: {fileID: 8974776837463427655, guid: 2a70994ccfb8c10458381d3fb3626547, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.54

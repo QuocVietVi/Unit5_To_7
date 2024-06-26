@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,12 @@ using UnityEngine;
 public class TransporterUnit : Unit
 {
     public int MaxAmountTransported;
+    public GameObject potionPrefab;
+    public GameObject moneyPrefab;
+    public Transform resourceHolder;
 
+    private List<GameObject> resources = new List<GameObject>();
+    private float yOffset = 0.5f;
     private Building m_CurrentTransportTarget;
     private Building.InventoryEntry m_Transporting = new Building.InventoryEntry();
 
@@ -26,11 +31,17 @@ public class TransporterUnit : Unit
             //we arrive at the base, unload!
             if (m_Transporting.Count > 0)
                 m_Target.AddItem(m_Transporting.ResourceId, m_Transporting.Count);
+            for (int i = 0; i < resources.Count; i++)
+            {
+                Destroy(resources[i].gameObject);
+            }
+            resources.Clear();
 
             //we go back to the building we came from
             GoTo(m_CurrentTransportTarget);
             m_Transporting.Count = 0;
             m_Transporting.ResourceId = "";
+            isDelivering = false;
         }
         else
         {
@@ -38,6 +49,30 @@ public class TransporterUnit : Unit
             {
                 m_Transporting.ResourceId = m_Target.Inventory[0].ResourceId;
                 m_Transporting.Count = m_Target.GetItem(m_Transporting.ResourceId, ammount);
+                Debug.Log(m_Transporting.ResourceId);
+                for (int i = 0; i < m_Transporting.Count; i++)
+                {
+                    if (m_Transporting.ResourceId == "potion")
+                    {
+                        Vector3 spawnPos = new Vector3(potionPrefab.transform.position.x,
+                            potionPrefab.transform.position.y + i * yOffset, potionPrefab.transform.position.z);
+                        GameObject p =Instantiate(potionPrefab, resourceHolder);
+                        p.transform.localPosition = spawnPos;   
+                        resources.Add(p);
+                    }
+                    else
+                    {
+                        Vector3 spawnPos = new Vector3(moneyPrefab.transform.position.x,
+                            moneyPrefab.transform.position.y + i * yOffset, moneyPrefab.transform.position.z);
+                        GameObject m = Instantiate(moneyPrefab, resourceHolder);
+                        m.transform.localPosition = spawnPos;
+                        resources.Add(m);
+                    }
+                }
+                if (m_Transporting.Count > 0)
+                {
+                    isDelivering = true;
+                }
                 m_CurrentTransportTarget = m_Target;
                 GoTo(Base.Instance);
             }

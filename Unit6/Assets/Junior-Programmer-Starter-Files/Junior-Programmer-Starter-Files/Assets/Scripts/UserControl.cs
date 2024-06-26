@@ -65,21 +65,27 @@ public class UserControl : MonoBehaviour
         // start of code cut from GetMouseButtonDown(1) check
         var ray = GameCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        
         if (Physics.Raycast(ray, out hit))
         {
             var building = hit.collider.GetComponentInParent<Building>();
-
+            Vector3 pos = hit.point;
             if (building != null)
             {
                 m_Selected.GoTo(building);
+               
             }
             else
             {
-                m_Selected.GoTo(hit.point);
+                if (!m_Selected.isDelivering)
+                {
+                    m_Selected.GoTo(hit.point);
+                }
             }
         }
         // end of code cut from GetMouseButtonDown(1) check
     }
+
 
     // Handle displaying the marker above the unit that is currently selected (or hiding it if no unit is selected)
     void MarkerHandling()

@@ -14,6 +14,7 @@ public abstract class Unit : MonoBehaviour,
     public float Speed;
     public TransporterColor transColor;
     public int ammount;
+    public bool isDelivering;
     protected NavMeshAgent m_Agent;
     protected Building m_Target;
 
@@ -43,6 +44,7 @@ public abstract class Unit : MonoBehaviour,
         {
             SetColor(main.TeamColor);
         }
+        isDelivering = false;
 
     }
 
