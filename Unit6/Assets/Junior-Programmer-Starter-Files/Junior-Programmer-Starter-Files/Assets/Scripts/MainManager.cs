@@ -6,7 +6,9 @@ using UnityEngine;
 public class MainManager : MonoBehaviour
 {
     public static MainManager Instance;
-    public Color TeamColor; 
+    public Color TeamColor;
+    public TransporterColor transColor;
+    public List<TransporterData> transporterData;
 
     private void Awake()
     {
@@ -21,6 +23,11 @@ public class MainManager : MonoBehaviour
 
         LoadColor();
 
+
+    }
+    private void Start()
+    {
+        transporterData = DataManager.Instance.ReadListData<TransporterData>();
     }
 
     [System.Serializable]

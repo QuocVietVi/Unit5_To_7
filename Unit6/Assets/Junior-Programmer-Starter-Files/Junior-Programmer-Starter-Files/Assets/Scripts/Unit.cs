@@ -11,13 +11,25 @@ using UnityEngine.AI;
 public abstract class Unit : MonoBehaviour,
     UIMainScene.IUIInfoContent
 {
-    public float Speed = 3;
-
+    public float Speed;
+    public TransporterColor transColor;
+    public int ammount;
     protected NavMeshAgent m_Agent;
     protected Building m_Target;
 
     protected void Awake()
     {
+        var main = MainManager.Instance;
+        transColor = main.transColor;
+        for (int i = 0; i < main.transporterData.Count; i++)
+        {
+            if (main.transporterData[i].color.Contains(transColor.ToString()) )
+            {
+                Debug.Log(transColor.ToString());
+                Speed = main.transporterData[i].speed;
+                ammount = main.transporterData[i].ammount;
+            }
+        }
         m_Agent = GetComponent<NavMeshAgent>();
         m_Agent.speed = Speed;
         m_Agent.acceleration = 999;
@@ -26,10 +38,12 @@ public abstract class Unit : MonoBehaviour,
 
     private void Start()
     {
-        if (MainManager.Instance != null)
+        var main = MainManager.Instance;
+        if (main != null)
         {
-            SetColor(MainManager.Instance.TeamColor);
+            SetColor(main.TeamColor);
         }
+
     }
 
     void SetColor(Color c)

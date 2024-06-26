@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class TransporterUnit : Unit
 {
-    public int MaxAmountTransported = 1;
+    public int MaxAmountTransported;
 
     private Building m_CurrentTransportTarget;
     private Building.InventoryEntry m_Transporting = new Building.InventoryEntry();
@@ -37,7 +37,7 @@ public class TransporterUnit : Unit
             if (m_Target.Inventory.Count > 0)
             {
                 m_Transporting.ResourceId = m_Target.Inventory[0].ResourceId;
-                m_Transporting.Count = m_Target.GetItem(m_Transporting.ResourceId, MaxAmountTransported);
+                m_Transporting.Count = m_Target.GetItem(m_Transporting.ResourceId, ammount);
                 m_CurrentTransportTarget = m_Target;
                 GoTo(Base.Instance);
             }
@@ -52,7 +52,7 @@ public class TransporterUnit : Unit
 
     public override string GetData()
     {
-        return $"Can transport up to {MaxAmountTransported}";
+        return $"Can transport up to {ammount}";
     }
 
     public override void GetContent(ref List<Building.InventoryEntry> content)

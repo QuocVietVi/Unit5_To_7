@@ -7,8 +7,10 @@ public class ColorPicker : MonoBehaviour
 {
     public Color[] AvailableColors;
     public Button ColorButtonPrefab;
+    public TransporterColor[] transColorArr;
     
     public Color SelectedColor { get; private set; }
+    public TransporterColor transColor { get; private set; }
     public System.Action<Color> onColorChanged;
 
     List<Button> m_ColorButtons = new List<Button>();
@@ -24,6 +26,7 @@ public class ColorPicker : MonoBehaviour
             newButton.onClick.AddListener(() =>
             {
                 SelectedColor = color;
+                
                 foreach (var button in m_ColorButtons)
                 {
                     button.interactable = true;
@@ -35,6 +38,14 @@ public class ColorPicker : MonoBehaviour
             });
             
             m_ColorButtons.Add(newButton);
+        }
+        for (int i = 0; i < m_ColorButtons.Count; i++)
+        {
+            int n = i;
+            m_ColorButtons[i].onClick.AddListener(() =>
+            {
+                MainManager.Instance.transColor = transColorArr[n];
+            });
         }
     }
 
