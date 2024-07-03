@@ -26,22 +26,61 @@ public class TransporterUnit : Unit
     
     protected override void BuildingInRange()
     {
-        if (m_Target == Base.Instance)
+        var dropPoint = Base.Instance;
+        if (m_Target == dropPoint)
         {
             //we arrive at the base, unload!
             if (m_Transporting.Count > 0)
-                m_Target.AddItem(m_Transporting.ResourceId, m_Transporting.Count);
-            for (int i = 0; i < resources.Count; i++)
             {
-                Destroy(resources[i].gameObject);
+                var data = MainManager.Instance.dropPointData;
+                if (m_Transporting.ResourceId == "potion")
+                {
+                    dropPoint.ammountPotion += m_Transporting.Count;
+                    if (dropPoint.ammountPotion <= data.resourceValue["potion"])
+                    {
+                        m_Target.AddItem(m_Transporting.ResourceId, m_Transporting.Count);
+
+                        var slot1 = dropPoint.listResourceHolder[0];
+                        var slot2 = dropPoint.listResourceHolder[1];
+                        if (dropPoint.ammountPotion <= 8)
+                        {
+                            dropPoint.SpawnResource(potionPrefab, slot1, dropPoint.ammountPotion);
+                        }
+                        else
+                        {
+                            dropPoint.SpawnResource(potionPrefab, slot2, dropPoint.ammountPotion - 8);
+                        }
+                        Despawn();
+                    }
+                   
+                }
+                if (m_Transporting.ResourceId == "money")
+                {
+                    dropPoint.ammountMoney += m_Transporting.Count;
+                    if (dropPoint.ammountPotion <= data.resourceValue["money"])
+                    {
+                        m_Target.AddItem(m_Transporting.ResourceId, m_Transporting.Count);
+                        var slot1 = dropPoint.listResourceHolder[2];
+                        var slot2 = dropPoint.listResourceHolder[3];
+                        if (dropPoint.ammountMoney <= 8)
+                        {
+                            dropPoint.SpawnResource(moneyPrefab, slot1, dropPoint.ammountMoney);
+                        }
+                        else
+                        {
+                            dropPoint.SpawnResource(moneyPrefab, slot2, dropPoint.ammountMoney - 8);
+                        }
+                        Despawn();
+                    }
+                }
             }
-            resources.Clear();
+            
+
+
+         
 
             //we go back to the building we came from
-            GoTo(m_CurrentTransportTarget);
-            m_Transporting.Count = 0;
-            m_Transporting.ResourceId = "";
-            isDelivering = false;
+
         }
         else
         {
@@ -49,6 +88,7 @@ public class TransporterUnit : Unit
             {
                 m_Transporting.ResourceId = m_Target.Inventory[0].ResourceId;
                 m_Transporting.Count = m_Target.GetItem(m_Transporting.ResourceId, ammount);
+                canMove = false;
                 Debug.Log(m_Transporting.ResourceId);
                 for (int i = 0; i < m_Transporting.Count; i++)
                 {
@@ -75,7 +115,9 @@ public class TransporterUnit : Unit
                 }
                 m_CurrentTransportTarget = m_Target;
                 GoTo(Base.Instance);
+
             }
+
         }
     }
     
@@ -94,5 +136,22 @@ public class TransporterUnit : Unit
     {
         if (m_Transporting.Count > 0)
             content.Add(m_Transporting);
+    }
+    void Despawn()
+    {
+        for (int i = 0; i < resources.Count; i++)
+        {
+            Destroy(resources[i].gameObject);
+        }
+        resources.Clear();
+        if (newPos != null && canMove)
+        {
+            GoTo(newPos);
+        }
+        GoTo(m_CurrentTransportTarget);
+        m_Transporting.Count = 0;
+        m_Transporting.ResourceId = "";
+        isDelivering = false;
+
     }
 }

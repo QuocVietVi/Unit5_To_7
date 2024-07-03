@@ -9,6 +9,7 @@ public class MainManager : MonoBehaviour
     public Color TeamColor;
     public TransporterColor transColor;
     public List<TransporterData> transporterData;
+    public DropPointData dropPointData;
 
     private void Awake()
     {
@@ -28,6 +29,8 @@ public class MainManager : MonoBehaviour
     private void Start()
     {
         transporterData = DataManager.Instance.ReadListData<TransporterData>();
+        GetDropPointData();
+
     }
 
     [System.Serializable]
@@ -57,6 +60,21 @@ public class MainManager : MonoBehaviour
             TeamColor = data.TeamColor;
         }
     }
+
+    public void GetDropPointData()
+    {
+        if (DataManager.Instance.HasData<DropPointData>())
+        {
+            dropPointData = DataManager.Instance.ReadData<DropPointData>();
+        }
+        else
+        {
+            dropPointData = new DropPointData();
+            DataManager.Instance.SaveData(dropPointData);
+            Debug.Log("Create new data");
+        }
+    }
+
 }
        
 

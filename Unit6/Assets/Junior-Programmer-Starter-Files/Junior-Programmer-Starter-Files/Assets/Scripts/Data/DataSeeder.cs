@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DataSeeder : MonoBehaviour
 {
-    bool isSaved = false;
 
     private void Start()
     {
@@ -17,11 +16,10 @@ public class DataSeeder : MonoBehaviour
 
         };
 
-        if (isSaved == false)
+        if (!DataManager.Instance.HasData<TransporterData>())
         {
             DataManager.Instance.SaveData(trans);
             Debug.Log("create succesful");
-            isSaved = true;
         }
         
 

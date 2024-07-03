@@ -15,8 +15,11 @@ public abstract class Unit : MonoBehaviour,
     public TransporterColor transColor;
     public int ammount;
     public bool isDelivering;
+    public Vector3 newPos;
+    public bool canMove;
     protected NavMeshAgent m_Agent;
     protected Building m_Target;
+    
 
     protected void Awake()
     {
@@ -45,7 +48,7 @@ public abstract class Unit : MonoBehaviour,
             SetColor(main.TeamColor);
         }
         isDelivering = false;
-
+        canMove = false;
     }
 
     void SetColor(Color c)
@@ -62,7 +65,7 @@ public abstract class Unit : MonoBehaviour,
         if (m_Target != null)
         {
             float distance = Vector3.Distance(m_Target.transform.position, transform.position);
-            if (distance < 2.0f)
+            if (distance < 4.0f)
             {
                 m_Agent.isStopped = true;
                 BuildingInRange();

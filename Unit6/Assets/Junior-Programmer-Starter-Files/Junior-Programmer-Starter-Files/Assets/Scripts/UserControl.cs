@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,8 @@ public class UserControl : MonoBehaviour
     public Camera GameCamera;
     public float PanSpeed = 10.0f;
     public GameObject Marker;
-    
+    float touchHold;
+
     private Unit m_Selected = null;
 
     private void Start()
@@ -26,16 +27,41 @@ public class UserControl : MonoBehaviour
         Vector2 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         GameCamera.transform.position = GameCamera.transform.position + new Vector3(move.y, 0, -move.x) * PanSpeed * Time.deltaTime;
 
+#if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
+
+
             HandleSelection();
+
         }
         else if (m_Selected != null && Input.GetMouseButtonDown(1))
-        {//right click give order to the unit
-
+        {
             HandleAction();
         }
+#elif UNITY_ANDROID
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
 
+            if (touch.phase == TouchPhase.Began)
+            {
+                touchHold = 0;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                if (touchHold < 0.1f)
+                {
+                    HandleSelection();
+                }
+            }
+            touchHold += Time.deltaTime;
+            if (touchHold > 0.5)
+            {
+                HandleAction();
+            }
+        }
+#endif
         MarkerHandling();
 
     }
@@ -43,7 +69,11 @@ public class UserControl : MonoBehaviour
     public void HandleSelection()
     {
         // start of code cut from GetMouseButtonDown(0) check
+#if UNITY_EDITOR
         var ray = GameCamera.ScreenPointToRay(Input.mousePosition);
+#elif UNITY_ANDROID
+            var ray = GameCamera.ScreenPointToRay(Input.GetTouch(0).position);
+#endif
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -62,21 +92,38 @@ public class UserControl : MonoBehaviour
 
     public void HandleAction()
     {
-        // start of code cut from GetMouseButtonDown(1) check
-        var ray = GameCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray; // Khởi tạo biến ray
+
+#if UNITY_EDITOR
+        ray = GameCamera.ScreenPointToRay(Input.mousePosition);
+#elif UNITY_ANDROID
+if (Input.touchCount > 0)
+{
+    ray = GameCamera.ScreenPointToRay(Input.GetTouch(0).position);
+}
+else
+{
+    return; 
+}
+#endif
+
         RaycastHit hit;
-        
+
         if (Physics.Raycast(ray, out hit))
         {
             var building = hit.collider.GetComponentInParent<Building>();
             Vector3 pos = hit.point;
-            if (building != null)
+            if (building != null && !m_Selected.isDelivering)
             {
                 m_Selected.GoTo(building);
-               
             }
             else
             {
+                if (building == null)
+                {
+                    m_Selected.newPos = pos;
+                    m_Selected.canMove = true;
+                }
                 if (!m_Selected.isDelivering)
                 {
                     m_Selected.GoTo(hit.point);

@@ -54,7 +54,6 @@ public class UIManager : MonoBehaviour
     public void Exit()
     {
         //if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
         //else
         Application.Quit(); 
 
